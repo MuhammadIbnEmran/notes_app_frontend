@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="noteForm">
+        <label for="author">
+            Author:
+        </label>
+        <input type="text" id="author" name="author">
+        <label for="note">
+            Note:
+        </label>
+        <textarea id="note" rows="2" cols="25" name="note"></textarea>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $("#noteForm").on("submit", function (e) {
+    e.preventDefault(); // stop normal form submit
+
+    const formData = $(this).serializeArray();
+    const json = {};
+
+    formData.forEach(field => {
+      json[field.name] = field.value;
+    });
+
+    $.ajax({
+      url: "http://localhost:8080/add-note",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(json),
+      success: function (response) {
+        console.log("Success:", response);
+      }
+    });
+  });
+</script>
+</html>
