@@ -11,21 +11,6 @@
 </head>
 
 <body class="p-3 m-0 border-0 bd-example m-0 border-0">
-  <form id="noteForm">
-    <div class="mb-3">
-      <label for="author" class="form-label">
-        Author:
-      </label>
-      <input type="text" id="author" name="author" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label for="note" class="form-label">
-        Note:
-      </label>
-      <textarea id="note" rows="2" cols="25" name="note" class="form-control"></textarea>
-    </div>
-    <input type="submit" value="Submit" class="btn btn-primary">
-  </form>
   <br>
   <button class="btn btn-primary" id="getNotesButton">
     Get Notes
@@ -35,33 +20,12 @@
 
   </div>
   <br>
-  <a href="./get-notes.html">
-    Link to Get Notes Page
+  <a href="./index.html">
+    Link to Home Page
   </a>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $("#noteForm").on("submit", function (e) {
-    e.preventDefault(); // stop normal form submit
-
-    const formData = $(this).serializeArray();
-    const json = {};
-
-    formData.forEach(field => {
-      json[field.name] = field.value;
-    });
-
-    $.ajax({
-      url: "http://localhost:8080/add-note",
-      method: "POST",
-      contentType: "application/json",
-      data: JSON.stringify(json),
-      success: function (response) {
-        console.log("Success:", response);
-      }
-    });
-  });
-
   $("#getNotesButton").on("click", function (e) {
     $.ajax({
       url: "http://localhost:8080/get-notes",
