@@ -32,7 +32,19 @@
   </button>
   <br>
   <div id="notesContainer">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Author</th>
+      <th scope="col">Note</th>
+      <th scope="col">Submitted Time</th>
+    </tr>
+  </thead>
+  <tbody id="notesTable">
 
+  </tbody>
+</table>
   </div>
   <br>
   <a href="./get-notes.html">
@@ -70,7 +82,13 @@
       success: function (response) {
         console.log("Success:", response);
         for (var i = 0; i < response.length; i++){
-          $("#notesContainer").append( "Author: " + response[i].author + ", Note: " + response[i].note + "/ Submitted: " + response[i].submittedDateTime + "<br>");
+          const noteRow = `<tr>
+      <th scope="row">${i + 1}</th>
+      <td>${response[i].author}</td>
+      <td>${response[i].note}</td>
+      <td>${response[i].submittedDateTime}</td>
+    </tr>`;
+          $("#notesTable").append(noteRow);
         }
       }
     });
